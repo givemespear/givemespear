@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information</title>
+</head>
+<body>
+<h1>내 정보</h1>
+
+<div th:if="${userId != 강}">
+    <h3 th:text="'아이디 : ' + ${id}"></h3>
+    <h3 th:text="${name + '님 환영합니다.'}"></h3> <!-- 수정된 부분 -->
+</div>
+<p><a href="/" style="text-decoration: none;">&#9664; 뒤로가기</a></p>
+</body>
+</html>
