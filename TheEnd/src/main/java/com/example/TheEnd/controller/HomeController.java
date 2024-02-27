@@ -41,7 +41,7 @@ public class HomeController {
 
     @PostMapping("/members/login")
     public String login(@Valid @ModelAttribute MemberForm memberForm, BindingResult bindingResult,
-                        HttpServletRequest request, HttpSession session) {
+                        HttpServletRequest request, Model model) {
         if (bindingResult.hasErrors()) {
             return "/members/login";
         }
@@ -53,14 +53,18 @@ public class HomeController {
             return "/members/login";
         }
 
-        // 로그인 성공 시 세션에 사용자 ID 저장
+        HttpSession session = request.getSession();
         session.setAttribute("userId", member.getName());
-        session.setAttribute("id", member.getId()); // 사용자의 ID도 저장할 수 있습니다.
         session.setMaxInactiveInterval(1800); // Session이 30분동안 유지
 
         // 이전 로그인 시간 저장
         session.setAttribute("lastLoginTime", new Date());
 
+        // 세션에 저장된 userId와 lastLoginTime을 모델에 추가하여 홈 페이지로 이동
+        // 세션에 저장된 userId를 name 속성에 추가하여 홈 페이지로 이동
+
+        model.addAttribute("name", member.getName());
+        model.addAttribute("lastLoginTime", new Date());
         return "redirect:/";
     }
 
@@ -75,7 +79,6 @@ public class HomeController {
     public String info(HttpSession session, Model model) {
         // 세션에서 userId 가져오기
         String userId = (String) session.getAttribute("userId");
-        String id = String.valueOf(session.getAttribute("id"));
 
 
         // 세션에 userId가 없는 경우, 로그인 페이지로 리다이렉트
@@ -85,7 +88,6 @@ public class HomeController {
 
         // 세션에 저장된 userId를 모델에 추가하여 info 페이지로 이동
         model.addAttribute("userId", userId);
-        model.addAttribute("id", id);
         return "info";
     }
 
