@@ -1,0 +1,16 @@
+<!-- templates/members/delete.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Member</title>
+</head>
+<body>
+<h1>Delete Member</h1>
+<p>Are you sure you want to delete this member?</p>
+<form action="/members/delete/{id}" method="post">
+    <button type="submit">Delete</button>
+    <a href="/members/memberList">Cancel</a>
+</form>
+</body>
+</html>

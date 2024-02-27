@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div class="container">
+    <div>
+        <h1>Hello MORAI</h1>
+        <p>회원 관리</p>
+        <p>
+            <button th:unless="${name != null}" onclick="location.href='/members/login'">로그인</button>
+            <button onclick="location.href='/members/new'">회원가입</button>
+            <button onclick="location.href='/members'">회원목록</button>
+            <button th:if="${name != null}" onclick="location.href='/logout'">로그아웃</button>
+        </p>
+    </div>
+    <!-- 환영 메시지를 로그인 상태일 때만 표시 -->
+    <div th:unless="${name == null}">
+        <h3>[[${name}]]님 환영합니다!</h3>
+        <!-- 이전 로그인 시간 표시 -->
+        <p th:text="'이전 로그인 시간: ' + ${#dates.format(lastLoginTime, 'yyyy-MM-dd HH:mm:ss')}"></p>
+    </div>
+</div>
+
+</body>
+</html>
